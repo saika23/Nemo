@@ -1,0 +1,19 @@
+1. SELECT first_name, last_name, hire_date
+   FROM employees
+   WHERE hire_date LIKE '%06';
+
+2. SELECT first_name, salary, commission_pct
+   FROM employees
+   WHERE salary < 5000;
+
+3. SELECT job_title
+   FROM jobs
+   ORDER BY job_title DESC;
+
+4. SELECT job_title, max_salary-min_salary "Difference"
+   FROM jobs
+   WHERE max_salary BETWEEN 2000 AND 10000;
+
+5. SELECT first_name, last_name, hire_date
+   FROM employees
+   WHERE hire_date LIKE '03%';

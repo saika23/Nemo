@@ -1,0 +1,68 @@
+1.
+SET SERVEROUTPUT ON
+DECLARE
+    deptno NUMBER := 20;
+    
+    CURSOR emp_cursor IS
+    SELECT last_name, salary, manager_id, department_id
+    FROM employees;
+
+BEGIN
+   FOR a IN emp_cursor
+   LOOP
+    IF a.department_id =deptno THEN
+     IF a.salary < 5000 AND a.manager_id IN (101,124) THEN
+        DBMS_OUTPUT.PUT_LINE(a.last_name || ' Due for a raise');
+     ELSE 
+        DBMS_OUTPUT.PUT_LINE(a.last_name || ' NOT due for a raise');
+     END IF;
+    END IF;
+    END LOOP;
+END;
+        
+2.
+SET SERVEROUTPUT ON
+DECLARE 
+    CURSOR dept_cursor IS 
+    SELECT department_id, department_name 
+    FROM departments
+    WHERE department_id < 100
+    ORDER BY department_id;
+    
+    CURSOR emp_cursor(dept NUMBER) IS
+    SELECT last_name, job_id, hire_date, salary
+    FROM employees
+    WHERE employee_id < 120
+    AND department_id = dept;
+    
+    dept departments.department_id%TYPE;
+    deptn departments.department_name%TYPE;
+    ln employees.last_name%TYPE;
+    ji employees.job_id%TYPE;
+    hd employees.hire_date%TYPE;
+    salary employees.salary%TYPE;
+ BEGIN   
+    OPEN dept_cursor;
+        LOOP
+            FETCH dept_cursor INTO dept, deptn;
+            EXIT WHEN dept_cursor%NOTFOUND;
+            DBMS_OUTPUT.PUT_LINE('Department Number: ' || TO_CHAR(dept));
+            DBMS_OUTPUT.PUT_LINE('Department Name: ' || (deptn));
+            
+            IF emp_cursor%ISOPEN THEN
+                CLOSE emp_cursor;
+            END IF;
+            
+            OPEN emp_cursor(dept);
+                LOOP
+                    FETCH emp_cursor INTO ln, ji, hd, salary;
+                     EXIT WHEN emp_cursor%NOTFOUND;
+                     DBMS_OUTPUT.PUT_LINE(ln);
+                     DBMS_OUTPUT.PUT_LINE(ji);
+                     DBMS_OUTPUT.PUT_LINE(TO_CHAR(hd));
+                     DBMS_OUTPUT.PUT_LINE(TO_CHAR(deptn));
+                END LOOP;
+                CLOSE emp_cursor;
+        END LOOP;
+    CLOSE dept_cursor;
+END;

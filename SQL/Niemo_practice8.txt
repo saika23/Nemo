@@ -1,0 +1,31 @@
+1.
+CREATE TABLE messages(
+    results VARCHAR(255)
+);
+DECLARE
+    empname employees.last_name%TYPE;
+    empsal  employees.salary%TYPE := 6000;
+BEGIN
+    SELECT last_name INTO empname FROM employees WHERE salary = empsal;
+    INSERT INTO messages(results) VALUES (empname);
+      EXCEPTION
+          WHEN TOO_MANY_ROWS THEN
+           INSERT INTO messages(results) VALUES ('More than one employee with a salary of 6000');
+    END;
+
+ SELECT * FROM messages;
+ DROP TABLE messages;
+
+
+2.
+SET SERVEROUTPUT ON
+DECLARE 
+    ex_childrecord_exists EXCEPTION;
+    PRAGMA EXCEPTION_INIT(ex_childrecord_exists, -02292);
+BEGIN
+    DBMS_OUTPUT.PUT_LINE('Deleting department 40...');
+    DELETE FROM departments WHERE department_id = 40;
+    EXCEPTION
+    WHEN ex_childrecord_exists THEN
+        DBMS_OUTPUT.PUT_LINE('Cannot delete department 40. There are employees in this department (child record exists..)');
+    END;

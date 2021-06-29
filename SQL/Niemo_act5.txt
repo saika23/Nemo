@@ -1,0 +1,57 @@
+1. 
+SET SERVEROUTPUT ON
+
+    DROP TABLE messages;
+    
+    CREATE TABLE messages
+    (
+        RESULTS VARCHAR2(255)
+    );
+    
+    DROP TABLE emp;
+
+BEGIN
+
+    FOR i IN 1..10 LOOP
+        IF i NOT IN(6,8) THEN
+            INSERT INTO messages(results) VALUES (i);
+        END IF;
+    END LOOP;
+COMMIT;
+END;
+/
+
+SELECT * FROM messages;
+
+2.
+SET SERVEROUTPUT ON
+
+DROP TABLE emp;
+
+	CREATE TABLE emp
+	AS SELECT * FROM hr.employees;
+
+	ALTER TABLE emp
+	ADD (stars varchar2(50));
+
+	DECLARE   
+    		empno emp.employee_id%TYPE := 176;
+    		asterisk emp.stars%TYPE;
+    		sal emp.salary%TYPE;
+	BEGIN 
+    		SELECT NVL(ROUND(salary/1000), 0) INTO v_sal
+    		FROM emp WHERE employee_id = v_empno;
+    
+    		FOR i IN 1..v_sal
+    		LOOP
+        		v_asterisk := v_asterisk || '*';
+    		END LOOP;
+
+    	UPDATE emp SET stars = v_asterisk
+    	WHERE employee_id = v_empno;
+    	COMMIT;
+	END;
+	/
+
+	SELECT employee_id, salary, stars
+	FROM emp WHERE employee_id = 176;

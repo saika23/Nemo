@@ -1,0 +1,29 @@
+CREATE OR REPLACE FUNCTION full_name(lname IN EMPLOYEES.last_name%TYPE, fname IN EMPLOYEES.first_name%TYPE)
+RETURN VARCHAR2
+    IS
+        fullname VARCHAR2(255);
+BEGIN
+    fullname := (lname || ',' || ' ' || fname);
+    RETURN fullname;
+END full_name;
+    
+SET SERVEROUTPUT ON
+    --A.--
+    DECLARE
+        fname EMPLOYEES.first_name%TYPE := 'Sarah';
+        lname EMPLOYEES.last_name%TYPE := 'Bell';
+    BEGIN
+        DBMS_OUTPUT.PUT_LINE(full_name(lname, fname));
+    END;
+
+    --B.--
+    BEGIN
+        DBMS_OUTPUT.PUT_LINE('Fulname: ' || full_name('Bell', 'Sarah'));
+    END;
+
+    --C.--
+    SELECT first_name, last_name, full_name(last_name,first_name) AS fullname
+    FROM employees
+    WHERE department_id = 50;
+
+DROP FUNCTION full_name;

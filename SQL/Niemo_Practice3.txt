@@ -1,0 +1,65 @@
+Activity 3
+1. Evaluate the PL/SQL block given above and determine the data type and value of each 
+of the following variables according to the rules of scoping.
+	a. 2
+	b. Western Europe
+	c. 601
+	d. Product 10012 is in stock
+	e. Western
+2. In the PL/SQL block shown above, determine the values and data types for each of the 
+following cases.
+	a. 201
+	b. Unisports
+	c. GOOD
+	d. Womansport
+	e. none
+	f. EXCELLENT
+3. Use the same session that you used to execute the practices on Practice 2. Edit the 
+script of question 5.
+a. SET SERVEROUTPUT ON
+    VARIABLE basic_percent NUMBER;
+    VARIABLE pf_percent NUMBER;
+DECLARE
+    --Declare Variable
+    basic_percent NUMBER := .45;
+    pf_percent NUMBER:= .12;
+    
+    fname VARCHAR2(15);
+    emp_sal NUMBER(10);
+    output varchar2(20):= 'Hello!';
+    contribution NUMBER(10);
+BEGIN 
+    /*execute comments*/
+    --initialization of variables
+    SELECT first_name, salary
+	INTO fname, emp_sal FROM employees
+	WHERE employee_id=110;
+    contribution := emp_sal*basic_percent*pf_percent;
+    DBMS_OUTPUT.PUT_LINE(output || fname);
+    DBMS_OUTPUT.PUT_LINE('Your salary is: ' || emp_sal);
+    DBMS_OUTPUT.PUT_LINE('Your contribution towards PF: ' || contribution);
+END;
+/
+
+4. SET SERVEROUTPUT ON
+
+ACCEPT employee_id NUMBER PROMPT 'Please enter your employee number:';
+DECLARE
+fname VARCHAR2(15);
+emp_sal NUMBER(10);
+pf_percent NUMBER;
+basic_salary NUMBER;
+q NUMBER;
+BEGIN
+q := &employee_id;
+SELECT first_name, salary INTO fname, emp_sal FROM employees WHERE employee_id=q;
+basic_salary := emp_sal * .45;
+pf_percent := basic_salary * .12;
+
+DBMS_OUTPUT.PUT_LINE('Hello ' || fname);
+DBMS_OUTPUT.PUT_LINE('YOUR SALARY IS: ' || emp_sal);
+DBMS_OUTPUT.PUT_LINE('YOUR CONTRIBUTION TOWARDS PF: ' || pf_percent);
+END;
+/
+
+

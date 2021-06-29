@@ -1,0 +1,50 @@
+1)
+a. valid
+b. valid
+c. invalid
+d. invalid 
+e. valid
+f. invalid
+g. valid
+h. valid
+
+2)
+a. invalid
+b. valid
+c. valid
+d. valid
+
+3) 
+a.
+
+4)
+SET SERVEROUTPUT ON;
+DECLARE
+print_string VARCHAR2(20) default 'Hello World';
+today DATE := SYSDATE; 
+tomorrow today%TYPE;
+BEGIN
+tomorrow := SYSDATE + 1;
+DBMS_OUTPUT.PUT_LINE(print_string);
+DBMS_OUTPUT.PUT_LINE('today is ' || today);
+DBMS_OUTPUT.PUT_LINE('tomorrow is ' || tomorrow);
+END; 
+
+5. SET SERVEROUTPUT ON
+    VARIABLE basic_percent NUMBER;
+    VARIABLE pf_percent NUMBER;
+DECLARE
+    today DATE:=SYSDATE;
+    tomorrow today%TYPE;
+    output varchar2(20):= 'Hello, World!';
+BEGIN 
+    tomorrow := today + 1;
+    DBMS_OUTPUT.PUT_LINE(output);
+    DBMS_OUTPUT.PUT_LINE('Today is ' || today);
+    DBMS_OUTPUT.PUT_LINE('tomorrow is ' || tomorrow);
+    :basic_percent := 45;
+    :pf_percent := 12;
+END;
+/
+PRINT basic_percent
+PRINT pf_percent

@@ -1,0 +1,36 @@
+1.
+SET SERVEROUTPUT ON;
+CREATE OR REPLACE PROCEDURE Greet
+IS 
+BEGIN
+    DBMS_OUTPUT.PUT_LINE(TO_CHAR(SYSDATE) );
+END Greet; 
+
+DECLARE
+    print_string VARCHAR2(20) default 'Hello World';
+    today DATE := SYSDATE; 
+    tomorrow today%TYPE;
+BEGIN
+tomorrow := SYSDATE + 1;
+    DBMS_OUTPUT.PUT_LINE(print_string);
+    DBMS_OUTPUT.PUT_LINE('Today is: ' || today);
+    DBMS_OUTPUT.PUT_LINE('Tomorrow is: ' || tomorrow);
+END;
+
+2.
+CREATE OR REPLACE PROCEDURE Greet(p_name VARCHAR2)
+IS 
+BEGIN
+    DBMS_OUTPUT.PUT_LINE(TO_CHAR(SYSDATE) );
+END Greet; 
+
+DECLARE
+    print_string VARCHAR2(20) default 'Niemo';
+    today DATE := SYSDATE; 
+    tomorrow today%TYPE;
+BEGIN
+tomorrow := SYSDATE + 1;
+    DBMS_OUTPUT.PUT_LINE('Hello ' || print_string);
+    DBMS_OUTPUT.PUT_LINE('Today is: ' || today);
+    DBMS_OUTPUT.PUT_LINE('Tomorrow is: ' || tomorrow);
+END;

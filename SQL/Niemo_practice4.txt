@@ -1,0 +1,51 @@
+1. 
+SET SERVEROUTPUT ON
+
+DECLARE
+max_deptno NUMBER;
+
+BEGIN
+SELECT MAX(department_id) INTO max_deptno FROM departments;
+DBMS_OUTPUT.PUT_LINE('The maximum department_id is : ' || max_deptno);
+END;
+/
+
+2. 
+SET SERVEROUTPUT ON
+
+VARIABLE row_added VARCHAR2(255)
+
+DECLARE
+max_deptno NUMBER;
+dept_name departments.department_name%TYPE := 'Education';
+dept_id NUMBER;
+
+BEGIN
+SELECT MAX(department_id) INTO max_deptno FROM departments;
+dept_id := max_deptno + 10;
+INSERT INTO departments (department_name, department_id, location_id)
+VALUES (dept_name, dept_id, NULL);
+DBMS_OUTPUT.PUT_LINE('The maximum department_id is : ' || dept_id);
+:row_added := (SQL%ROWCOUNT);
+DBMS_OUTPUT.PUT_LINE('  SQL%ROWCOUNT gives 1');
+END;
+/
+
+SELECT * FROM departments WHERE department_id = 280;
+
+3. 
+SET SERVEROUTPUT ON
+
+DECLARE
+dept_id departments.department_id%TYPE := 280;
+
+BEGIN
+UPDATE departments SET location_id = 3000 WHERE department_id = dept_id;
+END;
+/
+
+SELECT * FROM departments WHERE department_id = 280;
+
+
+DELETE FROM departments WHERE department_id = 280;
+SELECT * FROM departments WHERE department_id = 280;

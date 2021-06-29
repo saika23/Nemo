@@ -1,0 +1,9 @@
+1. D
+
+2. DECLARE
+   MESSAGE VARCHAR2(20):='HELLO, WORLD';
+   BEGIN
+   
+   DBMS_OUTPUT.PUT_LINE(message);
+   END;
+   /
